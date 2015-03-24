@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>AngularJS Masonry Directive</title>
+    <style>
+    body {
+        margin: 0;
+    }
+    
+    .masonry-brick {
+        margin: 0;
+        display: none;
+    }
+    
+    .masonry-brick.loaded {
+        display: block;
+    }
+    </style>
+</head>
+
+<body  ng-app="masonryApp">
+    <div class="row" ng-controller="ImagesCtrl">
+        <div masonry>
+            <div class="masonry-brick" ng-repeat="brick in bricks">
+                <img ng-src="{{ brick.src }}" alt="A masonry brick" style="heigh=100px">
+            </div>
+        </div>
+    </div>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/jquery-bridget/jquery.bridget.js"></script>
+    <script src="bower_components/get-style-property/get-style-property.js"></script>
+    <script src="bower_components/get-size/get-size.js"></script>
+    <script src="bower_components/eventEmitter/EventEmitter.js"></script>
+    <script src="bower_components/eventie/eventie.js"></script>
+    <script src="bower_components/doc-ready/doc-ready.js"></script>
+    <script src="bower_components/matches-selector/matches-selector.js"></script>
+    <script src="bower_components/outlayer/item.js"></script>
+    <script src="bower_components/outlayer/outlayer.js"></script>
+    <script src="bower_components/masonry/masonry.js"></script>
+    <script src="bower_components/imagesloaded/imagesloaded.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+    <script src="angular-masonry.js"></script>
+    <!-- // <script src="scripts/app.js"></script> -->
+    <!-- // <script src="scripts/controllers/ImagesCtrl.js"></script> -->
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID 
+		 <script>
+			 !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+			 (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+			 r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+			 }(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+			 ga('create', 'UA-XXXXX-X');
+			 ga('send', 'pageview');
+		</script>
+		-->
+
+		<script>
+		    angular.module('masonryApp', ['wu.masonry']).
+		        controller('ImagesCtrl', function ($scope) {
+		        	$scope.bricks = [];
+
+		            function genBrick() {
+		                var num = ~~(Math.random() * 22) + 1;
+		                return {
+		                    src: 'images/img-bg/img-' + num + '.jpg'
+		                };
+		            };
+
+		             function bricksGenerator(x) {
+                        for (var i = 1; i <= x; i++) {
+                            $scope.bricks.push(genBrick());
+                        };
+
+                    };
+
+                    bricksGenerator(10);
+		        });
+		</script>
+    </body>
+</html>
+
